@@ -22,7 +22,7 @@ export const AdPlaceholder: React.FC<Props> = ({
   const currentUser = useAppStore().currentUser;
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Admin ko ads mat dikhana
+  // Admin ko ads mat dikhao
   if (currentUser?.role === "admin") {
     return null;
   }
@@ -31,13 +31,15 @@ export const AdPlaceholder: React.FC<Props> = ({
     const el = containerRef.current;
     if (!el) return;
 
-    // Purana content hatao
+    // placeholder साफ करो
     el.innerHTML =
       '<div style="font-size:10px;color:#64748b;text-align:center;">Ad</div>';
 
     // ====== BANNER (728x90) ======
     if (type === "banner") {
-      // atOptions global variable set karo
+      console.log("Loading BANNER ad…");
+
+      // 1) atOptions ko GLOBAL set karo
       (window as any).atOptions = {
         key: "8f39a43c77438addb306579dbc223d00",
         format: "iframe",
@@ -46,25 +48,26 @@ export const AdPlaceholder: React.FC<Props> = ({
         params: {},
       };
 
-      // external script jise tumhe diya gaya hai
+      // 2) invoke.js ko <body> me as script add karo
       const s = document.createElement("script");
       s.src =
         "https://www.highperformanceformat.com/8f39a43c77438addb306579dbc223d00/invoke.js";
       s.type = "text/javascript";
       s.async = true;
 
-      // is container ke andar script inject karte hain
-      el.appendChild(s);
+      document.body.appendChild(s);
     }
 
     // ====== NATIVE (effectivegatecpm) ======
     if (type === "native") {
-      // pehle native container div banao (id same jo snippet me hai)
+      console.log("Loading NATIVE ad…");
+
+      // 1) placeholder ke andar container div banao
       const nativeContainer = document.createElement("div");
       nativeContainer.id = "container-8d182d0c70e82916a36628542ef0b3a2";
-      el.appendChild(nativeContainer); 
+      el.appendChild(nativeContainer);
 
-      // phir external async script attach karo
+      // 2) external script ko <body> me inject karo
       const s = document.createElement("script");
       s.src =
         "https://pl28676190.effectivegatecpm.com/8d182d0c70e82916a36628542ef0b3a2/invoke.js";
@@ -72,12 +75,12 @@ export const AdPlaceholder: React.FC<Props> = ({
       s.setAttribute("data-cfasync", "false");
       s.type = "text/javascript";
 
-      el.appendChild(s);
+      document.body.appendChild(s);
     }
 
-    // CLEANUP: component unmount ho to ad area clear
+    // CLEANUP: component unmount ho to sirf container साफ karo
     return () => {
-      el.innerHTML = "";
+      if (el) el.innerHTML = "";
     };
   }, [type]);
 
@@ -92,9 +95,8 @@ export const AdPlaceholder: React.FC<Props> = ({
         className +
         " bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex flex-col items-center justify-center rounded-xl text-slate-600 dark:text-slate-300 text-center text-xs p-3 relative"
       }
-      title="Adsterra Ad Slot"
+      title="Ad Slot"
     >
-      {/* chhota label */}
       <span className="absolute top-1 left-1 px-1 text-[10px] bg-black/50 text-white rounded">
         Ad
       </span>
