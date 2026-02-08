@@ -80,7 +80,7 @@ export const Home = () => {
       if (i > 0 && i % 12 === 0) {
         items.push(
           <div key={"ad_" + i} className="mb-4">
-             <AdPlaceholder height="h-[300px]" />
+             <AdPlaceholder height="h-[300px]" type="banner" />
           </div>
         );
       }
@@ -114,7 +114,7 @@ export const Home = () => {
 
       {/* Home Feed Banner Ad */}
       <div className="w-full max-w-4xl mx-auto mb-8">
-        <AdPlaceholder height="h-[90px]" />
+        <AdPlaceholder height="h-[90px]" type="banner" />
       </div>
 
       <Masonry
