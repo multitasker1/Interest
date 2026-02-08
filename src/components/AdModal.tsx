@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, ExternalLink } from 'lucide-react';
+import AdPlaceholder from './AdPlaceholder'; // ✅ NEW IMPORT
 
 interface AdModalProps {
   isOpen: boolean;
@@ -44,7 +45,9 @@ export const AdModal = ({ isOpen, onClose, onComplete }: AdModalProps) => {
         
         {/* Ad Header */}
         <div className="flex justify-between items-center p-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Sponsored Content</span>
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+            Sponsored Content
+          </span>
           <button 
             onClick={onClose}
             className="text-slate-500 hover:text-slate-900 dark:hover:text-white"
@@ -55,17 +58,22 @@ export const AdModal = ({ isOpen, onClose, onComplete }: AdModalProps) => {
 
         {/* Ad Content area */}
         <div className="p-8 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800 text-center min-h-[300px]">
-          <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Discover Something New</h2>
+          <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+            Discover Something New
+          </h2>
           <p className="text-slate-600 dark:text-slate-300 mb-6 max-w-md">
             While your download is being prepared, check out this special offer from our sponsor!
           </p>
           
-          {/* Adsterra Placeholder */}
-          <div className="w-full h-[90px] bg-slate-200 dark:bg-slate-700 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded flex items-center justify-center text-slate-500">
-             Adsterra 728x90 Banner
+          {/* ✅ Adsterra Native Ad Slot */}
+          <div className="w-full mb-4">
+            {/* yahan type="native" diya hai, isse AdPlaceholder ke andar
+                tumhara effectivegatecpm wala native script chalega */}
+            <AdPlaceholder height="h-[90px]" type="native" />
           </div>
           
-          <button className="mt-6 flex items-center gap-2 text-red-600 font-semibold hover:underline">
+          {/* Optional CTA – yeh sirf normal button hai, ad se direct linked nahi */}
+          <button className="mt-2 flex items-center gap-2 text-red-600 font-semibold hover:underline">
             Visit Sponsor <ExternalLink size={16} />
           </button>
         </div>
