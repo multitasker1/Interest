@@ -151,7 +151,7 @@ export const ImageDetail = () => {
           <div className="flex-grow">
              {/* Adsterra Detail view ad */}
             <div className="mb-6">
-              <AdPlaceholder height="h-[90px]" />
+              <AdPlaceholder height="h-[90px]" type="banner" />
             </div>
 
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
